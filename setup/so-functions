@@ -681,6 +681,8 @@ detect_os() {
 		OS=ubuntu
 		if grep -q "UBUNTU_CODENAME=bionic" /etc/os-release; then
 			OSVER=bionic
+		if grep -q "UBUNTU_CODENAME=focal" /etc/os-release; then
+			OSVER=focal
 		else
 			echo "We do not support your current version of Ubuntu."
 			exit 1
