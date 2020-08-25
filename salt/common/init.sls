@@ -88,7 +88,7 @@ heldpackages:
   pkg.installed:
     - pkgs:
       - containerd.io: 1.2.13-2
-      - docker-ce: 5:19.03.9~3-0~ubuntu-bionic
+      - docker-ce: 5:19.03.12~3-0~ubuntu-{{ grains.oscodename }}
     - hold: True
     - update_holds: True
 
@@ -142,6 +142,11 @@ alwaysupdated:
 # Set time to UTC
 Etc/UTC:
   timezone.system
+
+# Docker should always run
+docker-ce:
+  service.running:
+    - enable: True
 
 # Sync some Utilities
 utilsyncscripts:
