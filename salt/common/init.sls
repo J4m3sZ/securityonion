@@ -144,7 +144,7 @@ Etc/UTC:
   timezone.system
 
 # Docker should always run
-docker-ce:
+docker:
   service.running:
     - enable: True
 

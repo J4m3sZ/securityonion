@@ -34,7 +34,7 @@ m2cryptopkgs:
   pkg.installed:
     - skip_suggestions: False
     - pkgs:
-      - python-m2crypto
+      - python3-m2crypto
 {% endif %}
 
 removefbcertdir:
