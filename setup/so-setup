@@ -216,28 +216,26 @@ if [[ ! $is_import ]]; then
 	whiptail_patch_schedule
 fi
 
-case "$setup_type" in
-	'iso')
-		whiptail_set_hostname
-		whiptail_management_nic
-		whiptail_dhcp_or_static
-
-		if [ "$address_type" != 'DHCP' ]; then
-			whiptail_management_interface_ip
-			whiptail_management_interface_mask
-			whiptail_management_interface_gateway
-			whiptail_management_interface_dns
-			whiptail_management_interface_dns_search
-		fi
-
-		#collect_adminuser_inputs
-		;;
-	'network')
-		whiptail_network_notice
-		whiptail_set_hostname
-		whiptail_management_nic
-		;;
-esac
+# Setup networking
+whiptail_set_hostname
+whiptail_management_nic
+[ "$setup_type" == "iso" ] && CONFIGURE_NETWORK=1
+if [ "$setup_type" == "network" ]; 
+	whiptail_network_ask # Set CONFIGURE_NETWORK=1 if user wishes to configure
+fi
+if [ "$CONFIGURE_NETWORK" = 1 ]; then
+	if [ "$address_type" != 'DHCP' ]; then
+    		whiptail_management_interface_ip
+		whiptail_management_interface_mask
+		whiptail_management_interface_gateway
+		whiptail_management_interface_dns
+		whiptail_management_interface_dns_search
+	elif 
+		whiptail_dhcp_warn
+	fi
+else
+	
+fi
 
 short_name=$(echo "$HOSTNAME" | awk -F. '{print $1}')
 

@@ -755,15 +755,14 @@ whiptail_manager_adv_service_zeeklogs() {
 
 }
 
-whiptail_network_notice() {
+whiptail_network_ask() {
 
 	[ -n "$TESTING" ] && return
 
-	whiptail --title "Security Onion Setup" --yesno "Since this is a network install we assume the management interface, DNS, Hostname, etc are already set up. Press YES to continue." 8 75
+	whiptail --title "Security Onion Setup" --yesno "Since this is a network install we assume the management interface, DNS, Hostname, etc are already set up. Click YES to continue, or No to setup network interfaces." 8 75
 
 	local exitstatus=$?
-	whiptail_check_exitstatus $exitstatus
-
+        if [[ $exitstatus == 1 ]]; then export CONFIGURE_NETWORK=1; fi
 }
 
 whiptail_node_advanced() {
@@ -1279,4 +1278,11 @@ whiptail_you_sure() {
 	local exitstatus=$?
 	return $exitstatus
 
+}
+whiptail_dhcp_warn() {
+
+        [ -n "$TESTING" ] && return
+
+        whiptail --title "Security Onion Setup" --msgbox "If you use DHCP and your IP address changes, this can cause problems. If you want to use DHCP, make sure that you have a DHCP reservation so that your IP address does not change. Otherwise, use a static IP address to be safe.
+Press Ok to exit." 8 75
 }
