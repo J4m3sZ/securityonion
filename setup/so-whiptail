@@ -18,6 +18,12 @@
 source ./so-variables
 source ./so-common-functions
 
+whiptail_adminuser_exists() {
+
+	whiptail --title "Security Onion Setup" --msgbox "That user already exists. Please choose a new user name." 8 75
+
+}
+
 whiptail_airgap() {
 
 	[ -n "$TESTING" ] && return

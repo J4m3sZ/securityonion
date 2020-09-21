@@ -324,6 +324,12 @@ collect_soremote_inputs() {
 
 collect_adminuser_inputs() {
 	whiptail_create_admin_user
+	getent passwd $ADMINUSER
+	while [ $? -eq 0 ]; do
+		whiptail_adminuser_exists
+		whiptail_create_admin_user
+		getent passwd $ADMINUSER
+	done
 	APMATCH=no
 	while [[ $APMATCH != yes ]]; do
 		whiptail_create_admin_user_password1
