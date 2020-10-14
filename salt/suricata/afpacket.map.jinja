@@ -6,7 +6,7 @@ af-packet:
     defrag: yes
     use-mmap: yes
     tpacket-v3: yes
-    ring-size: {{ salt['pillar.get']('sensor:suriringsize', '2048') }}
+    ring-size: {{ salt['pillar.get']('sensor:suriringsize', '5000') }}
   - interface: default
     #threads: auto
     #use-mmap: no
